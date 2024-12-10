@@ -5,56 +5,70 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple.shade200,
-        leading: const Icon(Icons.menu),
-        centerTitle: true,
-        title: const Text('First App'),
-        actions: const [
-          Icon(
-            Icons.notifications,
-            size: 24,
-            color: Colors.purple,
+    return SafeArea(
+      child: Scaffold(
+        body: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Column(
+            children: [
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hi David',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Explore the World',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
+                  // Container(
+                  //   width: 130,
+                  //   height: 130,
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     image: DecorationImage(image: AssetImage('assets/images/profile2.jpg'), fit: BoxFit.fill),
+                  //   ),
+                  // ),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: AssetImage("assets/images/profile2.jpg"),
+                  )
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    // labelText: 'Full Name',
+                    hintText: 'Enter your name',
+                    contentPadding: EdgeInsets.only(left: 20),
+                    prefixIcon: Icon(Icons.person),
+                    suffixIcon: Icon(Icons.tune),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2.0, color: Colors.grey),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2.0, color: Colors.blue),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Icon(Icons.person),
-          SizedBox(width: 30),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              color: Colors.green.shade100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text('Hi! ', style: TextStyle(color: Colors.blue)),
-                  Text('My name is ', style: TextStyle(color: Colors.red)),
-                  Text('Wisdom', style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.pink.shade100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('John', style: TextStyle(color: Colors.green)),
-                  Text('James', style: TextStyle(color: Colors.blue)),
-                  Text('Johnson', style: TextStyle(color: Colors.red)),
-                ],
-              ),
-            ),
-            Text('John', style: TextStyle(color: Colors.green)),
-            Text('James', style: TextStyle(color: Colors.blue)),
-            Text('Johnson', style: TextStyle(color: Colors.red)),
-            Image.asset('assets/images/gravatar.jpg'),
-            Image.asset(
-              'assets/images/intro.jpg',
-              fit: BoxFit.fill,
-            ),
-          ],
         ),
       ),
     );

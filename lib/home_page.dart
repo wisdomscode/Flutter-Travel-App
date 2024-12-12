@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starterapp/models/dommy_category.dart';
 import 'package:starterapp/widgets/category_card.dart';
 import 'package:starterapp/widgets/custom_text_widget.dart';
 
@@ -10,13 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, String>> categories = [
-    {'name': 'Technology', 'icon': '💻'},
-    {'name': 'Science', 'icon': '🔬'},
-    {'name': 'Art', 'icon': '🎨'},
-    {'name': 'Sports', 'icon': '⚽'},
-    {'name': 'Music', 'icon': '🎵'},
-  ];
+  late String selectCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    selectCategory = 'Technology';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +27,11 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         // floatingActionButton: FloatingActionButton(onPressed: () {}),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           child: Column(
             children: [
               // User detail
-              Row(
+              const Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
               // Text field
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 30.0),
                 child: TextField(
                   decoration: InputDecoration(
@@ -89,19 +90,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Category
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomTextWidget(
+                  const CustomTextWidget(
                     text: 'Popular Places',
                     size: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: CustomTextWidget(
+                    child: const CustomTextWidget(
                       text: 'View All',
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
@@ -204,8 +205,93 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     final category = categories[index];
                     return CategoryCard(
+                      onTap: () {
+                        print("Category clicked ${category['name']}");
+                        setState(() {
+                          selectCategory = category['name']!;
+                        });
+                      },
                       name: category['name']!,
                       icon: category['icon']!,
+                      bgColor: selectCategory == category['name'] ? Colors.black : null,
+                      textColor: selectCategory == category['name'] ? Colors.white : null,
+                    );
+                  },
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // Destination cards
+              SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    // final category = categories[index];
+                    return Stack(
+                      children: [
+                        Container(
+                          width: 250,
+                          height: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.greenAccent,
+                            borderRadius: BorderRadius.circular(20),
+                            image: const DecorationImage(
+                              image: AssetImage('assets/images/intro.jpg'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 20,
+                          top: 20,
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+                            child: const Icon(
+                              Icons.favorite_outline,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Container(
+                                width: 210,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 8, 59, 100).withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CustomTextWidget(
+                                            text: 'Mount Fuji',
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 10),
+                                          CustomTextWidget(
+                                            text: 'Tokyo',
+                                            color: Colors.grey.shade400,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),

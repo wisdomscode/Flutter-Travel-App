@@ -11,8 +11,6 @@ class OnboradingScreen extends StatefulWidget {
 class _OnboradingScreenState extends State<OnboradingScreen> {
   @override
   void initState() {
-    super.initState();
-
     // Fucntion to auto navigate
     Future.delayed(
       const Duration(seconds: 5),
@@ -25,6 +23,8 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
         );
       },
     );
+
+    super.initState();
   }
 
   @override
@@ -42,7 +42,7 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -53,6 +53,18 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
               Text(
                 'Find Your Dream \nDestination with Us',
                 style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
+                },
+                child: Text('Continue!'),
               ),
             ],
           ),
